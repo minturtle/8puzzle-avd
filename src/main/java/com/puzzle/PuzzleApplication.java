@@ -19,7 +19,6 @@ public class PuzzleApplication {
 				.headless(false).run(args);
 	}
 
-
 	@Bean
 	public CommandLineRunner test(MainFrame mainFrame) {
 		return args -> {

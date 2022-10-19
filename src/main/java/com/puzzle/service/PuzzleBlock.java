@@ -1,10 +1,16 @@
 package com.puzzle.service;
 
+import lombok.Getter;
+import lombok.Setter;
 
-import org.springframework.stereotype.Component;
+import javax.swing.*;
 
-@Component
-public class PuzzleBlock {
-
-
+@Getter
+@Setter
+public class PuzzleBlock extends JButton {
+    private int number;
+    public PuzzleBlock(int number) {
+        this.number = number;
+        this.setText(Integer.toString(number));
+    }
 }
