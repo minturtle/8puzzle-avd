@@ -20,7 +20,30 @@ public class PuzzleMap {
         shuffle();
     }
 
+    /*
+    *  게임 시작시에 Map의 Puzzle들을 섞는 메서드
+    * */
     public void shuffle(){
 
     }
+
+    /*
+    * 사용자가 게임을 클리어 했는지 확인하는 메서드
+    * 사용자가 블록을 클릭해 블록의 위치가 바뀔 때 마다 게임이 끝났는지 체크해줘야함.
+    *
+    * */
+    public boolean isGameClear(){
+
+        return false;
+    }
+
+    /*
+    *  사용자가 블럭을 클릭했을 때, 해당 블럭이 Empty블럭이랑 인접해 있는지 확인하는 메서드
+    *  사용자가 버튼 클릭했을 때 인접하지 않다면 블럭의 위치는 바뀌지 않음.
+    * */
+    public boolean isNearbyEmptyBlock(PuzzleBlock puzzleBlock){
+
+        return false;
+    }
+
 }
