@@ -64,11 +64,6 @@ public class PuzzleMap {
     }
 
 
-    public Point getEmptyBlockPoint(){
-        return new Point(emptyBlock.getGridX(), emptyBlock.getGridY());
-
-    }
-
     private void swap(int x1, int y1, int x2 ,int y2){
         PuzzleBlock temp = map[y1][x1];
         map[y1][x1] = map[y2][x2];

@@ -1,5 +1,6 @@
 package com.puzzle.gui;
 
+import com.puzzle.service.PuzzleBlock;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -10,6 +11,8 @@ public class MainFrame {
 	private JFrame frame;
 
 	private final GameStartView gameStartView;
+	private final GamePlayView gamePlayView;
+	private final GameEndView gameEndView;
 
 	private final int START_FRAME_WIDTH = 450;
 	private final int START_FRAME_HEIGHT = 300;
@@ -19,12 +22,13 @@ public class MainFrame {
 	private int PLAY_FRAME_WIDTH = 500;
 	private int PLAY_FRAME_HEIGHT = 500;
 
-	private final GamePlayView gamePlayView;
 
 
-	public MainFrame(GameStartView gameStartView, GamePlayView gamePlayView) {
+
+	public MainFrame(GameStartView gameStartView, GamePlayView gamePlayView, GameEndView gameEndView) {
 		this.gameStartView = gameStartView;
 		this.gamePlayView = gamePlayView;
+		this.gameEndView = gameEndView;
 		initialize();
 	}
 
@@ -39,9 +43,11 @@ public class MainFrame {
 
 		frame.getContentPane().add(gameStartView);
 		frame.getContentPane().add(gamePlayView);
+		frame.getContentPane().add(gameEndView);
 
 
 		gamePlayView.setVisible(false);
+		gameEndView.setVisible(false);
 		gameStartView.setVisible(true);
 
 		gameStartView.setPlayBtnClickEvent((e)->{
@@ -49,12 +55,25 @@ public class MainFrame {
 			gamePlayView.setVisible(true);
 			frame.setSize(PLAY_FRAME_WIDTH, PLAY_FRAME_HEIGHT);
 		});
+
 		gamePlayView.setRestartBtnClick(e->{
 			gameStartView.setVisible(true);
 			gamePlayView.setVisible(false);
 			frame.setSize(START_FRAME_WIDTH, START_FRAME_HEIGHT);
 		});
 
+		gameEndView.addReturnBtnActionListener(e->{
+			gameStartView.setVisible(true);
+			gameEndView.setVisible(false);
+		});
+
+		gamePlayView.addOnclickGameCheck((isGameEnd)->{
+			if(isGameEnd){
+				gameEndView.setVisible(true);
+				gamePlayView.setVisible(false);
+				frame.setSize(START_FRAME_WIDTH, START_FRAME_HEIGHT);
+			}
+		});
 	}
 
 

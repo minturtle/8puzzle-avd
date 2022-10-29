@@ -7,45 +7,51 @@ import org.springframework.stereotype.Component;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 
 @Component
 public class GamePlayView extends JPanel{
 
     private int MAP_SIZE = 3;
-    private JButton resetButton;
+    private final JButton resetButton;
     private final PuzzleMap puzzleMap;
+    private JPanel playMap;
+    private PuzzleBlock[][] blockArr;
 
     public GamePlayView(PuzzleMap puzzleMap) {
         this.puzzleMap = puzzleMap;
+        this.resetButton = new JButton("Move to Start Page");
         initialize();
     }
 
-    public void initialize(){
+    public void initialize() throws RuntimeException{
         setBounds(0, 0, 500, 460);
         setLayout(new BorderLayout(0, 0));
 
-        JPanel playMap = new JPanel();
+        playMap = new JPanel();
         add(playMap, BorderLayout.CENTER);
         playMap.setLayout(new GridLayout(MAP_SIZE, MAP_SIZE, 0, 0));
 
-        resetButton = new JButton("Move to Start Page");
         add(resetButton, BorderLayout.SOUTH);
 
         puzzleMap.initialize(MAP_SIZE);
-        PuzzleBlock[][] blockArr = puzzleMap.getMap();
+        blockArr = puzzleMap.getMap();
 
-        inputPlayMap(playMap, blockArr);
+        updatePlayMap();
+    }
 
+    public void addOnclickGameCheck(Consumer<Boolean> func){
         for(int i = 0; i < MAP_SIZE; i++){
             for(int j = 0; j < MAP_SIZE; j++){
-                final PuzzleBlock puzzleBlock = blockArr[i][j];
+                PuzzleBlock puzzleBlock = blockArr[i][j];
 
                 puzzleBlock.addActionListener((e)->{
                     puzzleMap.swapToEmptyBlock(puzzleBlock);
-                    playMap.removeAll();
-                    inputPlayMap(playMap, blockArr);
-                    playMap.updateUI();
+                    updatePlayMap();
+
+                    func.accept(puzzleMap.isGameClear());
                 });
             }
         }
@@ -53,19 +59,21 @@ public class GamePlayView extends JPanel{
 
     public void setmapSize(int MAP_SIZE) {
         this.MAP_SIZE = MAP_SIZE;
+        initialize();
     }
 
     public void setRestartBtnClick(ActionListener func){
         resetButton.addActionListener(func);
     }
 
-    private void inputPlayMap(JPanel playMap, PuzzleBlock[][] blockArr){
+    private void updatePlayMap(){
+        playMap.removeAll();
         for(int i = 0; i < MAP_SIZE; i++){
             for(int j = 0; j < MAP_SIZE; j++){
                 playMap.add(blockArr[i][j]);
             }
         }
-
+        playMap.updateUI();
     }
 
 }
