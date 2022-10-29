@@ -1,10 +1,8 @@
 package com.puzzle.gui;
 
-import com.puzzle.service.PuzzleMap;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
-
 
 @Component
 public class MainFrame {
@@ -23,9 +21,8 @@ public class MainFrame {
 
 	private final GamePlayView gamePlayView;
 
-	private final int MAP_SIZE = 3;
 
-	public MainFrame(com.puzzle.gui.GameStartView gameStartView, GamePlayView gamePlayView) {
+	public MainFrame(GameStartView gameStartView, GamePlayView gamePlayView) {
 		this.gameStartView = gameStartView;
 		this.gamePlayView = gamePlayView;
 		initialize();
@@ -38,7 +35,7 @@ public class MainFrame {
 		frame.setBounds(100, 100, START_FRAME_WIDTH, START_FRAME_HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.setTitle("8-Queen Game");
+		frame.setTitle("8-Puzzle Game");
 
 		frame.getContentPane().add(gameStartView);
 		frame.getContentPane().add(gamePlayView);
@@ -56,7 +53,6 @@ public class MainFrame {
 			gameStartView.setVisible(true);
 			gamePlayView.setVisible(false);
 			frame.setSize(START_FRAME_WIDTH, START_FRAME_HEIGHT);
-
 		});
 
 	}

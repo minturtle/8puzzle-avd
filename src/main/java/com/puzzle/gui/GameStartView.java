@@ -14,7 +14,7 @@ public class GameStartView extends JPanel {
         setLayout(null);
         setBounds(0, 0, 446, 263);
 
-        JLabel gameTitle = new JLabel("8-Queen Game");
+        JLabel gameTitle = new JLabel("8-Puzzle Game");
         gameTitle.setBounds(168, 43, 97, 52);
         add(gameTitle);
 

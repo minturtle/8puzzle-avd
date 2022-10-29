@@ -10,14 +10,21 @@ import java.util.Objects;
 @Setter
 public class PuzzleBlock extends JButton {
     private int number;
-    public PuzzleBlock(int number) {
+    private int gridX;
+    private int gridY;
+
+
+    public PuzzleBlock( int x, int y, int number) {
         this.number = number;
+        this.gridX = x;
+        this.gridY = y;
+
         this.setText(Integer.toString(number));
     }
 
     
     /*
-    * PuzzleBlock의 number값은 게임마다 하나씩만 존재하는 고유한 값이기 때문에 , equals로 사용
+    * PuzzleBlock의 number값은 게임마다 하나씩만 존재하는 고유한 값이기 때문에 , equals로 사용이 가능
     * */
     @Override
     public boolean equals(Object o) {

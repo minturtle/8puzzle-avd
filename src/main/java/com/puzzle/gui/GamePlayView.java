@@ -1,5 +1,6 @@
 package com.puzzle.gui;
 
+import com.puzzle.service.PuzzleBlock;
 import com.puzzle.service.PuzzleMap;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +14,10 @@ public class GamePlayView extends JPanel{
 
     private int MAP_SIZE = 3;
     private JButton resetButton;
+    private final PuzzleMap puzzleMap;
 
-
-    public GamePlayView() {
+    public GamePlayView(PuzzleMap puzzleMap) {
+        this.puzzleMap = puzzleMap;
         initialize();
     }
 
@@ -30,13 +32,21 @@ public class GamePlayView extends JPanel{
         resetButton = new JButton("Move to Start Page");
         add(resetButton, BorderLayout.SOUTH);
 
-        PuzzleMap puzzleMap = new PuzzleMap(MAP_SIZE);
+        puzzleMap.initialize(MAP_SIZE);
+        PuzzleBlock[][] blockArr = puzzleMap.getMap();
 
-        JButton[][] blockArr = puzzleMap.getMap();
+        inputPlayMap(playMap, blockArr);
 
         for(int i = 0; i < MAP_SIZE; i++){
             for(int j = 0; j < MAP_SIZE; j++){
-                playMap.add(blockArr[i][j]);
+                final PuzzleBlock puzzleBlock = blockArr[i][j];
+
+                puzzleBlock.addActionListener((e)->{
+                    puzzleMap.swapToEmptyBlock(puzzleBlock);
+                    playMap.removeAll();
+                    inputPlayMap(playMap, blockArr);
+                    playMap.updateUI();
+                });
             }
         }
     }
@@ -47,6 +57,15 @@ public class GamePlayView extends JPanel{
 
     public void setRestartBtnClick(ActionListener func){
         resetButton.addActionListener(func);
+    }
+
+    private void inputPlayMap(JPanel playMap, PuzzleBlock[][] blockArr){
+        for(int i = 0; i < MAP_SIZE; i++){
+            for(int j = 0; j < MAP_SIZE; j++){
+                playMap.add(blockArr[i][j]);
+            }
+        }
+
     }
 
 }
