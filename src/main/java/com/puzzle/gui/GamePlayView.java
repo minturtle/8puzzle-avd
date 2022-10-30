@@ -8,8 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
-
 
 @Component
 public class GamePlayView extends JPanel{
@@ -57,7 +55,7 @@ public class GamePlayView extends JPanel{
         }
     }
 
-    public void setmapSize(int MAP_SIZE) {
+    public void resizing(int MAP_SIZE) {
         this.MAP_SIZE = MAP_SIZE;
         initialize();
     }

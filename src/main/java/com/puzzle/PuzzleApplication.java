@@ -20,7 +20,7 @@ public class PuzzleApplication {
 	}
 
 	@Bean
-	public CommandLineRunner test(MainFrame mainFrame) {
+	public CommandLineRunner startGUI(MainFrame mainFrame) {
 		return args -> {
 			mainFrame.setVisible(true);
 		};

@@ -1,10 +1,7 @@
 package com.puzzle.service;
 
-
 import lombok.Getter;
 import org.springframework.stereotype.Component;
-
-import java.awt.*;
 
 @Getter
 @Component
@@ -19,8 +16,21 @@ public class PuzzleMap {
     *  게임 시작시에 Map의 Puzzle들을 섞는 메서드
     * */
     public void shuffle(){
-        
+            for (int i = 0; i < 100; i++) {
+                int randomX = (int) (Math.random() * mapSize);
+                int randomY = (int) (Math.random() * mapSize);
+
+                swap(0, 0, randomX, randomY);
+            }
+            
+            while(!isSolveAble()){
+                int randomX = (int) (Math.random() * mapSize);
+                int randomY = (int) (Math.random() * mapSize);
+
+                swap(0, 0, randomX, randomY);
+            }
     }
+
 
     /*
     * 사용자가 게임을 클리어 했는지 확인하는 메서드
@@ -99,5 +109,12 @@ public class PuzzleMap {
 
 
         return false;
+    }
+
+    /*
+     * 게임이 클리어 가능한지 체크하는 메서드
+     * */
+    private boolean isSolveAble(){
+        return true;
     }
 }
