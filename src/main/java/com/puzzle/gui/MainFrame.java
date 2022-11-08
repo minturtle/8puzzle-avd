@@ -1,6 +1,5 @@
 package com.puzzle.gui;
 
-import com.puzzle.service.PuzzleBlock;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -16,7 +15,7 @@ public class MainFrame {
 
 	private final int START_FRAME_WIDTH = 450;
 	private final int START_FRAME_HEIGHT = 300;
-
+	private int MAP_SIZE = 3;
 
 	//3*3에서 n*n으로 변경시 GUI FRAME 크기 변경이 있을수 있음
 	private int PLAY_FRAME_WIDTH = 500;
@@ -56,18 +55,13 @@ public class MainFrame {
 			frame.setSize(PLAY_FRAME_WIDTH, PLAY_FRAME_HEIGHT);
 		});
 
-		gamePlayView.setRestartBtnClick(e->{
-			gameStartView.setVisible(true);
-			gamePlayView.setVisible(false);
-			frame.setSize(START_FRAME_WIDTH, START_FRAME_HEIGHT);
-		});
 
-		gameEndView.addReturnBtnActionListener(e->{
+		gameEndView.setReturnBtnActionListener(e->{
 			gameStartView.setVisible(true);
 			gameEndView.setVisible(false);
 		});
 
-		gamePlayView.addOnclickGameCheck((isGameEnd)->{
+		gamePlayView.addClickGameCheckClear((isGameEnd)->{
 			if(isGameEnd){
 				gameEndView.setVisible(true);
 				gamePlayView.setVisible(false);

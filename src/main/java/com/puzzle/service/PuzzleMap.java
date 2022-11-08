@@ -13,26 +13,6 @@ public class PuzzleMap {
     private int mapSize;
 
     /*
-    *  게임 시작시에 Map의 Puzzle들을 섞는 메서드
-    * */
-    public void shuffle(){
-            for (int i = 0; i < 100; i++) {
-                int randomX = (int) (Math.random() * mapSize);
-                int randomY = (int) (Math.random() * mapSize);
-
-                swap(0, 0, randomX, randomY);
-            }
-            
-            while(!isSolveAble()){
-                int randomX = (int) (Math.random() * mapSize);
-                int randomY = (int) (Math.random() * mapSize);
-
-                swap(0, 0, randomX, randomY);
-            }
-    }
-
-
-    /*
     * 사용자가 게임을 클리어 했는지 확인하는 메서드
     * 사용자가 블록을 클릭해 블록의 위치가 바뀔 때 마다 게임이 끝났는지 체크해줘야함.
     *
@@ -89,7 +69,6 @@ public class PuzzleMap {
 
     /*
      *  사용자가 블럭을 클릭했을 때, 해당 블럭이 Empty블럭이랑 인접해 있는지 확인하는 메서드
-     *  사용자가 버튼 클릭했을 때 인접하지 않다면 블럭의 위치는 바뀌지 않음.
      * */
     private boolean isNearbyEmptyBlock(PuzzleBlock puzzleBlock){
 
@@ -112,9 +91,30 @@ public class PuzzleMap {
     }
 
     /*
+     *  게임 시작시에 Map의 Puzzle들을 섞는 메서드
+     * */
+    private void shuffle(){
+        for (int i = 0; i < 100; i++) {
+            int randomX = (int) (Math.random() * mapSize);
+            int randomY = (int) (Math.random() * mapSize);
+
+            swap(0, 0, randomX, randomY);
+        }
+
+        while(!isSolveAble()){
+            int randomX = (int) (Math.random() * mapSize);
+            int randomY = (int) (Math.random() * mapSize);
+
+            swap(0, 0, randomX, randomY);
+        }
+    }
+
+    /*
      * 게임이 클리어 가능한지 체크하는 메서드
      * */
     private boolean isSolveAble(){
         return true;
     }
+
+
 }

@@ -24,7 +24,7 @@ public class GameEndView extends JPanel {
         add(returnButton);
     }
 
-    public void addReturnBtnActionListener(ActionListener actionListener){
+    public void setReturnBtnActionListener(ActionListener actionListener){
         returnButton.addActionListener(actionListener);
     }
 }
