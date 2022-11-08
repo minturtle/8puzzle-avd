@@ -31,12 +31,19 @@ public class PuzzleMap {
     }
     public int count_inversions(){
         int count = 0;
-        for(int i = 0; i <map.length ; i++){
-            for(int j = 0; j < map[i].length; i++){
-                if(map[i][j].getNumber() > map[i][j+1].getNumber())
-                count += 1;
+        int[] numberArr = new int[mapSize * mapSize];
+        for(int i = 0; i < mapSize; i++){
+            for(int j=0; j < mapSize; j++){
+                numberArr[i * mapSize + j] = map[i][j].getNumber();
             }
         }
+
+        for(int i = 0; i < numberArr.length-1; i++){
+            for(int j = i+1; j < numberArr.length; j++){
+                if(numberArr[i] > numberArr[j]) count++;
+            }
+        }
+
         return count;
     }
     public boolean isSolveAble(){
