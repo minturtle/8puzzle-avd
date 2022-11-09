@@ -15,27 +15,31 @@ public class GamePlayView extends JPanel{
     private final PuzzleMap puzzleMap;
     private JPanel playMap;
     private PuzzleBlock[][] blockArr;
+    private Consumer<Boolean> gameEndMoveFunc;
+
 
     public GamePlayView(PuzzleMap puzzleMap) {
         this.puzzleMap = puzzleMap;
-        initialize();
-    }
-
-    private void initialize() throws RuntimeException{
         setBounds(0, 0, 500, 460);
         setLayout(new BorderLayout(0, 0));
 
         playMap = new JPanel();
         add(playMap, BorderLayout.CENTER);
+
+        load(3);
+    }
+
+    public void load(int mapSize) throws RuntimeException{
+        MAP_SIZE = mapSize;
+
+        playMap.removeAll();
         playMap.setLayout(new GridLayout(MAP_SIZE, MAP_SIZE, 0, 0));
 
         puzzleMap.initialize(MAP_SIZE);
         blockArr = puzzleMap.getMap();
 
         updatePlayMap();
-    }
 
-    public void addClickGameCheckClear(Consumer<Boolean> func){
         for(int i = 0; i < MAP_SIZE; i++){
             for(int j = 0; j < MAP_SIZE; j++){
                 PuzzleBlock puzzleBlock = blockArr[i][j];
@@ -44,10 +48,19 @@ public class GamePlayView extends JPanel{
                     puzzleMap.swapToEmptyBlock(puzzleBlock);
                     updatePlayMap();
 
-                    func.accept(puzzleMap.isGameClear());
+                    gameEndMoveFunc.accept(puzzleMap.isGameClear());
                 });
             }
         }
+    }
+
+    public void addClickGameCheckClear(Consumer<Boolean> func){
+        gameEndMoveFunc = func;
+    }
+
+    //게임이 끝났을 때, 사용자가 블럭을 몇번 옮겼는지 확인하는 함수
+    public int getCount(){
+        return puzzleMap.getCount();
     }
 
     private void updatePlayMap(){

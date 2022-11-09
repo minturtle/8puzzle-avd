@@ -11,6 +11,25 @@ public class PuzzleMap {
     private PuzzleBlock emptyBlock;
     private final int[][] NEAR_VECTORS = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // 상하좌우
     private int mapSize;
+    private int count;
+
+    public void initialize(int size){
+        this.mapSize = size;
+        this.count = 0;
+
+        map = new PuzzleBlock[size][size];
+        int number = 1;
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                map[i][j] = new PuzzleBlock(j, i, number++);
+            }
+        }
+        map[size-1][size-1].setText("");
+        emptyBlock = map[size-1][size-1];
+        shuffle();
+    }
+
+
     /*
     *  게임 시작시에 Map의 Puzzle들을 섞는 메서드
     * */
@@ -84,21 +103,8 @@ public class PuzzleMap {
     public void swapToEmptyBlock(PuzzleBlock puzzleBlock){
         if(!isNearbyEmptyBlock(puzzleBlock)) return;
 
+        count++; // 블럭의 위치가 바뀌면 count를 1 더한다.
         swap(puzzleBlock.getGridX(), puzzleBlock.getGridY(), emptyBlock.getGridX(), emptyBlock.getGridY());
-    }
-
-    public void initialize(int size){
-        this.mapSize = size;
-        map = new PuzzleBlock[size][size];
-        int number = 1;
-        for(int i = 0; i < size; i++){
-            for(int j = 0; j < size; j++){
-                map[i][j] = new PuzzleBlock(j, i, number++);
-            }
-        }
-        map[size-1][size-1].setText("");
-        emptyBlock = map[size-1][size-1];
-        shuffle();
     }
 
 
