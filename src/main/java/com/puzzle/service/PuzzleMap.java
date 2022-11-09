@@ -59,6 +59,7 @@ public class PuzzleMap {
 
         for(int i = 0; i < numberArr.length-1; i++){
             for(int j = i+1; j < numberArr.length; j++){
+                if(numberArr[i] == mapSize*mapSize) continue;
                 if(numberArr[i] > numberArr[j]) count++;
             }
         }
@@ -68,14 +69,14 @@ public class PuzzleMap {
     public boolean isSolveAble(){
         int row_blank;
         int n = map.length;
-        if (n % 2 == 1)
+        if (n % 2 == 1){
             return count_inversions() % 2 == 0;
-        else
+        }
+        else{
             row_blank = emptyBlock.getGridX()/n;
-            if(row_blank % 2 == 0){
-                return count_inversions() % 2 == 1;}
-            else
-                return count_inversions() % 2 == 0;
+            if(row_blank % 2 == 0) return count_inversions() % 2 == 1;
+            else return count_inversions() % 2 == 0;
+        }
     }
 
     /*
