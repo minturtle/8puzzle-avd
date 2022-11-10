@@ -4,28 +4,41 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Objects;
 
 @Getter
 @Setter
-public class PuzzleBlock extends JButton {
+public class PuzzleBlock extends JPanel {
     private int number;
     private int gridX;
     private int gridY;
+    private boolean isEmpty = false;
+    private String imagePath;
 
-
-    public PuzzleBlock( int x, int y, int number) {
+    public PuzzleBlock(int x, int y, int number) {
         this.number = number;
         this.gridX = x;
         this.gridY = y;
-
-        this.setText(Integer.toString(number));
     }
 
-    
-    /*
-    * PuzzleBlock의 number값은 게임마다 하나씩만 존재하는 고유한 값이기 때문에 , equals로 사용이 가능
-    * */
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public void setEmpty(boolean empty) {
+        isEmpty = empty;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if(isEmpty) return;
+
+        if (imagePath != null)g.drawImage(new ImageIcon(imagePath).getImage(), 0,0 , getWidth(), getHeight(), null);
+        else g.drawString(Integer.toString(number), getWidth() /2, getHeight()/2);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

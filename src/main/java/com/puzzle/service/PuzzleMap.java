@@ -3,8 +3,6 @@ package com.puzzle.service;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-
 @Getter
 @Component
 public class PuzzleMap {
@@ -15,7 +13,8 @@ public class PuzzleMap {
     private int mapSize;
     private int count;
 
-    public void initialize(int size){
+
+    public void initialize(int size, String[] imageList){
         this.mapSize = size;
         this.count = 0;
 
@@ -24,11 +23,16 @@ public class PuzzleMap {
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
                 map[i][j] = new PuzzleBlock(j, i, number++);
+                if(imageList != null) map[i][j].setImagePath(imageList[i * mapSize + j]);
             }
         }
-        map[size-1][size-1].setText("");
         emptyBlock = map[size-1][size-1];
+        emptyBlock.setEmpty(true);
+
         shuffle();
+    }
+    public void initialize(int size){
+        initialize(size, null);
     }
 
 

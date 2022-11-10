@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.function.Consumer;
 
 @Component
@@ -29,13 +31,17 @@ public class GamePlayView extends JPanel{
         load(3);
     }
 
-    public void load(int mapSize) throws RuntimeException{
+    public void load(int mapSize){
+        load(mapSize, null);
+    }
+
+    public void load(int mapSize, String[] imagePathList) throws RuntimeException{
         MAP_SIZE = mapSize;
 
         playMap.removeAll();
         playMap.setLayout(new GridLayout(MAP_SIZE, MAP_SIZE, 0, 0));
 
-        puzzleMap.initialize(MAP_SIZE);
+        puzzleMap.initialize(MAP_SIZE, imagePathList);
         blockArr = puzzleMap.getMap();
 
         updatePlayMap();
@@ -44,12 +50,15 @@ public class GamePlayView extends JPanel{
             for(int j = 0; j < MAP_SIZE; j++){
                 PuzzleBlock puzzleBlock = blockArr[i][j];
 
-                puzzleBlock.addActionListener((e)->{
-                    puzzleMap.swapToEmptyBlock(puzzleBlock);
-                    updatePlayMap();
-
-                    gameEndMoveFunc.accept(puzzleMap.isGameClear());
+                puzzleBlock.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        puzzleMap.swapToEmptyBlock(puzzleBlock);
+                        updatePlayMap();
+                        gameEndMoveFunc.accept(puzzleMap.isGameClear());
+                    }
                 });
+
             }
         }
     }

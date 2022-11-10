@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.util.Arrays;
 
 @Component
 public class MainFrame {
@@ -18,7 +19,6 @@ public class MainFrame {
 	private final GameEndView gameEndView;
 	private final com.puzzle.service.Timer timerRunnable;
 	private Thread timer;
-	private int MAP_SIZE = 3;
 
 	private int FRAME_WIDTH = 500;
 	private int FRAME_HEIGHT = 500;
@@ -54,7 +54,12 @@ public class MainFrame {
 		gameStartView.setPlayBtnClickEvent((e)->{
 			gameStartView.setVisible(false);
 			gamePlayView.setVisible(true);
-			gamePlayView.load(gameStartView.getMapSize());
+
+			final int mapSize = gameStartView.getMapSize();
+			String imagePath = gameStartView.getSelectedImagePath();
+			final String[] images = getImages(mapSize, imagePath);
+
+			gamePlayView.load(mapSize, images);
 			startTimer();
 		});
 
@@ -77,6 +82,14 @@ public class MainFrame {
 	}
 
 
+	//임시
+	private String[] getImages(int mapSize, String imagePath) {
+		if(imagePath == null) return null;
+		final String[] images = new String[mapSize * mapSize];
+
+		Arrays.fill(images, "images/samples/" + imagePath);
+		return images;
+	}
 
 
 	public void setVisible(boolean visible){

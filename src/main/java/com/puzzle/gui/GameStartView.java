@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 @Component
 public class GameStartView extends JPanel {
@@ -14,6 +15,7 @@ public class GameStartView extends JPanel {
     private JPanel imagePreviewPanel;
     private Choice imageChoise;
 
+    public final String NO_IMAGE = "NO IMAGE";
 
     public GameStartView() {
         setLayout(null);
@@ -38,7 +40,7 @@ public class GameStartView extends JPanel {
 
         imagePreviewPanel = new JPanel();
         imagePreviewPanel.setBackground(Color.WHITE);
-        imagePreviewPanel.setBounds(103, 82, 274, 256);
+        imagePreviewPanel.setBounds(103, 82, 250, 250);
         add(imagePreviewPanel);
 
         JLabel label2 = new JLabel("이미지 선택");
@@ -46,9 +48,23 @@ public class GameStartView extends JPanel {
         add(label2);
 
         imageChoise = new Choice();
-        imageChoise.setBounds(114, 371, 108, 20);
+        imageChoise.setBounds(114, 371, 130, 20);
         add(imageChoise);
+
+        File[] sampleImages = new File("images/samples").listFiles();
+        imageChoise.add(NO_IMAGE);
+        for (File sampleImage : sampleImages) {
+            imageChoise.add(sampleImage.getName());
+        }
+
+
+        //이미지 이름을 선택하는 칸에서 이미지를 골랐을 때 실행되는 함수
+        imageChoise.addItemListener(e->{
+            drawImageInPreview("images/samples/" + e.getItem());
+        });
+
     }
+
 
     public void setPlayBtnClickEvent(ActionListener func){
         playButton.addActionListener(func);
@@ -57,4 +73,16 @@ public class GameStartView extends JPanel {
     public int getMapSize(){
         return (Integer) mapSizeSpinner.getValue();
     }
+    public String getSelectedImagePath(){
+        return imageChoise.getSelectedItem().equals(NO_IMAGE) ? null :imageChoise.getSelectedItem() ;
+    }
+
+
+    private void drawImageInPreview(String imagePath) {
+        if(imagePath.equals("images/samples/" + NO_IMAGE)){
+            imagePath = "images/NO_IMAGE.png";
+        }
+        imagePreviewPanel.getGraphics().drawImage(new ImageIcon(imagePath).getImage(), 0,0, 250,250, null);
+    }
+
 }
