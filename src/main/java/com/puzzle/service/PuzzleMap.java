@@ -3,6 +3,8 @@ package com.puzzle.service;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Getter
 @Component
 public class PuzzleMap {
@@ -145,5 +147,12 @@ public class PuzzleMap {
         return false;
     }
 
-
+    //테스트용 메서드
+    protected void setMap(int [][] map){
+        for(int i = 0; i < map.length; i++){
+            for(int j = 0; j < map[i].length; j++){
+                this.map[i][j] = new PuzzleBlock(j, i, map[i][j]);
+            }
+        }
+    }
 }
