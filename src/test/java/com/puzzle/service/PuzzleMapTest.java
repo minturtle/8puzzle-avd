@@ -20,6 +20,7 @@ class PuzzleMapTest {
     @DisplayName("isGameClear-게임이 클리어된 경우")
     void t1() throws Exception {
         puzzleMap.setMap(new int[][]{{1,2,3}, {4,5,6}, {7,8,9}});
-        assertThat(puzzleMap.isGameClear()).isTrue();
+        assertThat(puzzleMap.isGameClear()).isEqualTo(true);
     }
+
 }
