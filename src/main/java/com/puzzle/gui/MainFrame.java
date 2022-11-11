@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.util.Arrays;
 
 @Component
 public class MainFrame {
@@ -18,12 +19,9 @@ public class MainFrame {
 	private final GameEndView gameEndView;
 	private final com.puzzle.service.Timer timerRunnable;
 	private Thread timer;
-	private final int START_FRAME_WIDTH = 450;
-	private final int START_FRAME_HEIGHT = 300;
-	private int MAP_SIZE = 3;
 
-	private int PLAY_FRAME_WIDTH = 500;
-	private int PLAY_FRAME_HEIGHT = 500;
+	private int FRAME_WIDTH = 500;
+	private int FRAME_HEIGHT = 500;
 
 
 	public MainFrame(GameStartView gameStartView, GamePlayView gamePlayView, GameEndView gameEndView, Timer timer) {
@@ -38,7 +36,7 @@ public class MainFrame {
 	private void initialize() {
 		frame = new JFrame();
 
-		frame.setBounds(100, 100, START_FRAME_WIDTH, START_FRAME_HEIGHT);
+		frame.setBounds(100, 100, FRAME_WIDTH, FRAME_HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("8-Puzzle Game");
@@ -54,10 +52,14 @@ public class MainFrame {
 
 		//start view => play view 로 넘어가는 버튼 클릭시
 		gameStartView.setPlayBtnClickEvent((e)->{
-			frame.setSize(PLAY_FRAME_WIDTH, PLAY_FRAME_HEIGHT);
 			gameStartView.setVisible(false);
 			gamePlayView.setVisible(true);
-			gamePlayView.load(MAP_SIZE);
+
+			final int mapSize = gameStartView.getMapSize();
+			String imagePath = gameStartView.getSelectedImagePath();
+			final String[] images = getImages(mapSize, imagePath);
+
+			gamePlayView.load(mapSize, images);
 			startTimer();
 		});
 
@@ -70,8 +72,6 @@ public class MainFrame {
 
 				gameEndView.setCountText(gamePlayView.getCount() + "번");
 				gameEndView.setClearTimeText(timerRunnable.getTime());
-
-				frame.setSize(START_FRAME_WIDTH, START_FRAME_HEIGHT);
 			}
 		});
 
@@ -82,6 +82,14 @@ public class MainFrame {
 	}
 
 
+	//임시
+	private String[] getImages(int mapSize, String imagePath) {
+		if(imagePath == null) return null;
+		final String[] images = new String[mapSize * mapSize];
+
+		Arrays.fill(images, "images/samples/" + imagePath);
+		return images;
+	}
 
 
 	public void setVisible(boolean visible){
