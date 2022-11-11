@@ -131,7 +131,7 @@ public class PuzzleMap {
     /*
      *  사용자가 블럭을 클릭했을 때, 해당 블럭이 Empty블럭이랑 인접해 있는지 확인하는 메서드
      * */
-    private boolean isNearbyEmptyBlock(PuzzleBlock puzzleBlock){
+    public boolean isNearbyEmptyBlock(PuzzleBlock puzzleBlock){
 
         int clickedBlockX = puzzleBlock.getGridX();
         int clickedBlockY = puzzleBlock.getGridY();
