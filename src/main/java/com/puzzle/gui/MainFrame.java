@@ -1,5 +1,6 @@
 package com.puzzle.gui;
 
+import com.puzzle.service.ImageUtils;
 import com.puzzle.service.Timer;
 import org.springframework.stereotype.Component;
 
@@ -7,6 +8,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 @Component
@@ -56,8 +58,9 @@ public class MainFrame {
 			gamePlayView.setVisible(true);
 
 			final int mapSize = gameStartView.getMapSize();
-			String imagePath = gameStartView.getSelectedImagePath();
-			final String[] images = getImages(mapSize, imagePath);
+			String imageName = gameStartView.getSelectedImagePath();
+
+			final BufferedImage[] images = ImageUtils.sliceImage(imageName, mapSize);
 
 			gamePlayView.load(mapSize, images);
 			startTimer();

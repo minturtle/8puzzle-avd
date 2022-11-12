@@ -3,6 +3,8 @@ package com.puzzle.service;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
+import java.awt.*;
+
 @Getter
 @Component
 public class PuzzleMap {
@@ -14,7 +16,7 @@ public class PuzzleMap {
     private int count;
 
 
-    public void initialize(int size, String[] imageList){
+    public void initialize(int size, Image[] imageList){
         this.mapSize = size;
         this.count = 0;
 
@@ -23,7 +25,7 @@ public class PuzzleMap {
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
                 map[i][j] = new PuzzleBlock(j, i, number++);
-                if(imageList != null) map[i][j].setImagePath(imageList[i * mapSize + j]);
+                if(imageList != null) map[i][j].setImage(imageList[i * mapSize + j]);
             }
         }
         emptyBlock = map[size-1][size-1];
@@ -131,7 +133,7 @@ public class PuzzleMap {
     /*
      *  사용자가 블럭을 클릭했을 때, 해당 블럭이 Empty블럭이랑 인접해 있는지 확인하는 메서드
      * */
-    public boolean isNearbyEmptyBlock(PuzzleBlock puzzleBlock){
+    protected boolean isNearbyEmptyBlock(PuzzleBlock puzzleBlock){
 
         int clickedBlockX = puzzleBlock.getGridX();
         int clickedBlockY = puzzleBlock.getGridY();

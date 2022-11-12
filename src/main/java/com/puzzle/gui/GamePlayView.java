@@ -35,13 +35,13 @@ public class GamePlayView extends JPanel{
         load(mapSize, null);
     }
 
-    public void load(int mapSize, String[] imagePathList) throws RuntimeException{
+    public void load(int mapSize, Image[] imageList) throws RuntimeException{
         MAP_SIZE = mapSize;
 
         playMap.removeAll();
         playMap.setLayout(new GridLayout(MAP_SIZE, MAP_SIZE, 0, 0));
 
-        puzzleMap.initialize(MAP_SIZE, imagePathList);
+        puzzleMap.initialize(MAP_SIZE, imageList);
         blockArr = puzzleMap.getMap();
 
         updatePlayMap();

@@ -14,7 +14,7 @@ public class PuzzleBlock extends JPanel {
     private int gridX;
     private int gridY;
     private boolean isEmpty = false;
-    private String imagePath;
+    private Image image;
 
     public PuzzleBlock(int x, int y, int number) {
         this.number = number;
@@ -22,8 +22,8 @@ public class PuzzleBlock extends JPanel {
         this.gridY = y;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public void setEmpty(boolean empty) {
@@ -35,7 +35,7 @@ public class PuzzleBlock extends JPanel {
         super.paintComponent(g);
         if(isEmpty) return;
 
-        if (imagePath != null)g.drawImage(new ImageIcon(imagePath).getImage(), 0,0 , getWidth(), getHeight(), null);
+        if (image != null)g.drawImage(image, 0,0 , getWidth(), getHeight(), null);
         else g.drawString(Integer.toString(number), getWidth() /2, getHeight()/2);
     }
 

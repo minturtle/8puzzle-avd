@@ -77,31 +77,5 @@ class PuzzleMapTest {
         assertThat(puzzleMap.count_inversions()).isEqualTo(2);
     }
 
-    @Test
-    @DisplayName("isNearByEmptyBlock- emptyblock과 인접")
-    void t11() throws Exception {
-        puzzleMap.setMap(new int[][]{{1,2,3},{4,5,6},{8,7,9}});
-        assertThat(puzzleMap.isNearByEmptyBlock(puzzleMap.getMap()[0][2])).isEqualTo(true);
-    }
-    @Test
-    @DisplayName("isNearByEmptyBlock- emptyblock과 인접 X ")
-    void t12() throws Exception {
-        puzzleMap.setMap(new int[][]{{1,2,3},{4,5,6},{8,7,9}});
-        assertThat(puzzleMap.isNearByEmptyBlock()).isEqualTo(true);
-    }
-
-    @Test
-    @DisplayName("swap- emptyblock과 인접 X ")
-    void t12() throws Exception {
-        puzzleMap.setMap(new int[][]{{1,2,3},{4,5,6},{8,7,9}});
-        assertThat(puzzleMap.isNearByEmptyBlock()).isEqualTo(true);
-    }
-
-    @Test
-    @DisplayName("swap- emptyblock과 인접 X ")
-    void t12() throws Exception {
-        puzzleMap.setMap(new int[][]{{1,2,3},{4,5,6},{8,7,9}});
-        assertThat(puzzleMap.isNearByEmptyBlock()).isEqualTo(true);
-    }
 
 }
