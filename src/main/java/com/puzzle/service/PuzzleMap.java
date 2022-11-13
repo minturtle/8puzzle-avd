@@ -81,7 +81,7 @@ public class PuzzleMap {
             return count_inversions() % 2 == 0;
         }
         else{
-            row_blank = emptyBlock.getGridX()/n;
+            row_blank = (emptyBlock.getGridX()+1)/n;
             if(row_blank % 2 == 0) return count_inversions() % 2 == 1;
             else return count_inversions() % 2 == 0;
         }
